@@ -1,6 +1,7 @@
 
 function smart_build()
 {
+    echo "SMART BUILD!!!"
     START=$(date +%s);
 
     project_type=$(p2 $SMART_BUILD_TOOLS_DIR/detect_project.py)
