@@ -2,6 +2,8 @@ import os
 import sys
 import subprocess
 from subprocess import *
+import pyperclip
+
 
 def get_git_root(p):
     """Return None if p is not in a git repo, or the root of the repo if it is"""
@@ -62,3 +64,10 @@ print(latex_cmd)
 latex_output = subprocess.check_output(latex_cmd, shell=True)
 latex_output = latex_output.strip()
 print(latex_output)
+
+print("Copied to clipboard command to open generated PDF file:")
+
+open_pdf_cmd = "o " + target_file_name + ".pdf"
+print(open_pdf_cmd)
+
+pyperclip.copy(open_pdf_cmd)
