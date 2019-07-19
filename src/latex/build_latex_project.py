@@ -37,7 +37,7 @@ if len(sys.argv) > 1:
 else:
     target_file = figure_out_target_file(current_dir)
 
-print("Let's build latex file: " + target_file)
+# print("Let's build latex file: " + target_file)
 
 # latex_files = []
 # bib_files = []
@@ -54,20 +54,37 @@ target_file_name = target_file
 if target_file.endswith('.tex'):
     target_file_name = target_file[:-4]
 
-latex_cmd = "pdflatex " + target_file_name + ".tex && "
-latex_cmd += "bibtex " + target_file_name + " && "
-latex_cmd += "pdflatex " + target_file_name + ".tex && "
-latex_cmd += "bibtex " + target_file_name + " && "
-latex_cmd += "pdflatex " + target_file_name + ".tex && "
-latex_cmd += "bibtex " + target_file_name + ""
+bib_found = True
+
+if not os.path.exists(target_file_name + ".bib"):
+    dir_content = os.listdir(current_dir)
+    dir_content = [content for content in dir_content if content.endswith(".bib")]
+    if len(dir_content) == 0:
+        # print("Error: no bib file found!")
+        bib_found = False
+    else:
+        target_bib_file = dir_content[0][:-4]
+else:
+    target_bib_file = target_file_name
+
+latex_cmd = "pdflatex " + target_file_name + ".tex || "
+if bib_found:
+    latex_cmd += "bibtex " + target_bib_file + " || "
+latex_cmd += "pdflatex " + target_file_name + ".tex || "
+if bib_found:
+    latex_cmd += "bibtex " + target_bib_file + " || "
+latex_cmd += "pdflatex " + target_file_name + ".tex || "
+if bib_found:
+    latex_cmd += "bibtex " + target_bib_file + ""
 print(latex_cmd)
-latex_output = subprocess.check_output(latex_cmd, shell=True)
-latex_output = latex_output.strip()
-print(latex_output)
+# latex_output = subprocess.check_output(latex_cmd, shell=True)
+# latex_output = latex_output.strip()
+# print(latex_output)
 
-print("Copied to clipboard command to open generated PDF file:")
 
-open_pdf_cmd = "o " + target_file_name + ".pdf"
-print(open_pdf_cmd)
+# print("Copied to clipboard command to open generated PDF file:")
 
-pyperclip.copy(open_pdf_cmd)
+# open_pdf_cmd = "o " + target_file_name + ".pdf"
+# print(open_pdf_cmd)
+
+# pyperclip.copy(open_pdf_cmd)
