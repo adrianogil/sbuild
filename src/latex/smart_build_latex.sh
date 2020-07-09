@@ -5,6 +5,9 @@ DEFAULT_BUILD_FILE=build.sh
 if test -f "${DEFAULT_BUILD_FILE}"; then
     echo "Let's run: "${DEFAULT_BUILD_FILE}
     ./${DEFAULT_BUILD_FILE}
+elif test -f "Makefile"; then
+    echo "Let's run from Makefile "
+    make
 else
     target_file=$1
 
