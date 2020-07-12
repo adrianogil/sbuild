@@ -16,3 +16,10 @@ function smart-build()
 }
 alias b="smart-build"
 alias s-build="smart-build"
+
+function smart-create-build-file()
+{
+    python3 $SMART_BUILD_TOOLS_DIR/create_build_file.py $@
+}
+alias bf="smart-create-build-file"
+alias s-build-file='smart-create-build-file'
