@@ -2,6 +2,10 @@ import sys
 
 
 def create_latex_build_file(tex_file, bib_file):
+
+    if ".bib" in bib_file:
+        bib_file = bib_file.replace(".bib", "")
+
     build_file = """
 
 target_tex=TEX_FILE
