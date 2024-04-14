@@ -4,7 +4,7 @@ import sys
 def create_latex_build_file(tex_file, bib_file=None):
 
     if not bib_file:
-        bib_file=tex_file.replace(".tex", "")q
+        bib_file=tex_file.replace(".tex", "")
 
     if ".bib" in bib_file:
         bib_file = bib_file.replace(".bib", "")
